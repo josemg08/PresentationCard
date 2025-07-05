@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">PresentationCard</string>
     <string name="subtitle_main_screen">Developer</string>
+    <string name="linkedin">LinkedIn</string>
 </resources>
