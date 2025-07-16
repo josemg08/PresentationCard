@@ -165,6 +165,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            tools:visibility="gone"
             android:layout_marginStart="5dp"
             android:text="Button 2"/>
     </LinearLayout>
