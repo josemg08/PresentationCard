@@ -2,6 +2,7 @@ package com.example.presentationcard;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.example.presentationcard.Constants.EXTRA_STRING_KEY;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,13 +33,13 @@ public class ProfileActivity extends AppCompatActivity {
         Button educationButton = findViewById(R.id.go_to_education);
         educationButton.setOnClickListener(view -> {
             Intent intent = new Intent(ProfileActivity.this, EducationActivity.class);
-            intent.putExtra(Constants.EXTRA_STRING_KEY, "Hello from ProfileActivity!");
+            intent.putExtra(EXTRA_STRING_KEY, "Hello from ProfileActivity!");
             startActivity(intent);
         });
 
         /*if (savedInstanceState != null) {
             // Restore button2 visibility state
-            button2Visibility = savedInstanceState.getInt(button2VisibilityKey, button2.getVisibility());
+            button2Visibility = savedInstanceState.getInt(EXTRA_STRING_KEY, button2.getVisibility());
             button2.setVisibility(button2Visibility);
         } else {
             button2Visibility = button2.getVisibility();
