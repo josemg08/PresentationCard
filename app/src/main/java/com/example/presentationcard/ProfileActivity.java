@@ -1,18 +1,10 @@
 package com.example.presentationcard;
 
-import static android.view.View.INVISIBLE;
-import static android.view.View.VISIBLE;
-import static com.example.presentationcard.Constants.EXTRA_STRING_KEY;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
+import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ProfileActivity extends AppCompatActivity {
-
-    private int button2Visibility = VISIBLE;
 
     /**
      * Called when the activity is first created. Used to initialize the activity.
@@ -20,40 +12,17 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Changing the StatusBar icons to darker ones to contrast against white background
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
         // Add layout reference
         setContentView(R.layout.activity_profile);
-        // Get reference to the title TextView
-        TextView title = findViewById(R.id.title_text);
-
-        // Get reference to the two buttons
-        Button button1 = findViewById(R.id.button1);
-        Button button2 = findViewById(R.id.button2);
-
-        // Add button to navigate to EducationActivity
-        Button educationButton = findViewById(R.id.go_to_education);
-        educationButton.setOnClickListener(view -> {
-            Intent intent = new Intent(ProfileActivity.this, EducationActivity.class);
-            intent.putExtra(EXTRA_STRING_KEY, "Hello from ProfileActivity!");
-            startActivity(intent);
-        });
 
         /*if (savedInstanceState != null) {
-            // Restore button2 visibility state
-            button2Visibility = savedInstanceState.getInt(EXTRA_STRING_KEY, button2.getVisibility());
-            button2.setVisibility(button2Visibility);
-        } else {
-            button2Visibility = button2.getVisibility();
+            // Use to restore savedInstanceState
         }*/
-
-        // Add logic for button1 click
-        button1.setOnClickListener(v -> {
-            // Example hiding second button
-            if (button2.getVisibility() == VISIBLE) {
-                button2.setVisibility(INVISIBLE);
-            } else {
-                button2.setVisibility(VISIBLE);
-            }
-        });
     }
 
     /**
@@ -70,9 +39,6 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Restore button2 visibility
-        /*Button button2 = findViewById(R.id.button2);
-        button2.setVisibility(button2Visibility);*/
     }
 
     /**
@@ -81,9 +47,6 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        // Save button2 visibility
-        /*Button button2 = findViewById(R.id.button2);
-        button2Visibility = button2.getVisibility();*/
     }
 
     /**
@@ -116,7 +79,5 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        // Save button2 visibility state
-        //outState.putInt(button2VisibilityKey, button2Visibility);
     }
 }
