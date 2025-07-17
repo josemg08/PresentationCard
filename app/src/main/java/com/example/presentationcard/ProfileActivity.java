@@ -1,7 +1,13 @@
 package com.example.presentationcard;
 
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -13,9 +19,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Changing the StatusBar icons to darker ones to contrast against white background
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        setStatusBarColor();
 
         // Add layout reference
         setContentView(R.layout.activity_profile);
@@ -23,6 +27,37 @@ public class ProfileActivity extends AppCompatActivity {
         /*if (savedInstanceState != null) {
             // Use to restore savedInstanceState
         }*/
+
+        initNetworkLinks();
+    }
+
+    private void initNetworkLinks() {
+        View networkItem1 = findViewById(R.id.network_item_4);
+        networkItem1.setOnClickListener(v -> {
+            String url = "https://www.linkedin.com";
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
+        });
+        ImageView icon1 = networkItem1.findViewById(R.id.network_icon);
+        TextView text1 = networkItem1.findViewById(R.id.network_text);
+        icon1.setImageResource(R.drawable.ic_linkedin);
+        text1.setText(getString(R.string.linkedin));
+    }
+
+    private void setStatusBarColor() {
+        // Changing the StatusBar icons to darker ones to contrast against white background
+        int nightMode = getResources().getConfiguration().uiMode
+                & Configuration.UI_MODE_NIGHT_MASK;
+        View decor = getWindow().getDecorView();
+
+        if (nightMode == Configuration.UI_MODE_NIGHT_NO) {
+            // light theme → dark icons
+            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        } else {
+            // dark theme → light icons
+            decor.setSystemUiVisibility(0);
+        }
     }
 
     /**

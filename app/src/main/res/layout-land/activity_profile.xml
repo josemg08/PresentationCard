@@ -57,94 +57,37 @@
             android:layout_marginTop="32dp"
             android:layout_marginHorizontal="24dp">
 
-            <LinearLayout
+            <include
                 android:id="@+id/network_item_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
+                layout="@layout/view_network_item"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/email"
-                    app:tint="@color/purple_700"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:layout_marginStart="5dp"
-                    android:text="Network 1"/>
-            </LinearLayout>
-
-            <LinearLayout
+            <include
                 android:id="@+id/network_item_2"
-                android:layout_width="wrap_content"
+                layout="@layout/view_network_item"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:layout_toEndOf="@id/network_item_1"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@id/network_item_1" />
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/email"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:layout_marginStart="5dp"
-                    android:text="Network 2"/>
-            </LinearLayout>
-
-            <LinearLayout
+            <include
                 android:id="@+id/network_item_3"
-                android:layout_width="wrap_content"
+                layout="@layout/view_network_item"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/network_item_1"
-                android:layout_marginTop="32dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_marginTop="20dp" />
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/email"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:layout_marginStart="5dp"
-                    android:text="Network 3"/>
-            </LinearLayout>
-
-            <LinearLayout
+            <include
                 android:id="@+id/network_item_4"
-                android:layout_width="wrap_content"
+                layout="@layout/view_network_item"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_below="@id/network_item_2"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="32dp"
-                android:layout_toEndOf="@id/network_item_3"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/email"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:layout_marginStart="5dp"
-                    android:text="Network 4"/>
-            </LinearLayout>
+                android:layout_toEndOf="@id/network_item_3" />
 
         </RelativeLayout>
 
