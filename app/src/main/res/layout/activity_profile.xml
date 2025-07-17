@@ -13,9 +13,9 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profile_image"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="100dp"
+            android:layout_width="@dimen/profile_image_size"
+            android:layout_height="@dimen/profile_image_size"
+            android:layout_marginTop="@dimen/profile_image_top_padding"
             android:importantForAccessibility="no"
             android:scaleType="centerCrop"
             android:src="@drawable/android_sample_image"
@@ -25,7 +25,7 @@
             android:id="@+id/title_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/title_container_top_padding"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -33,70 +33,69 @@
                 android:id="@+id/title_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="24dp"
+                android:paddingHorizontal="@dimen/profile_view_padding"
                 android:text="@string/title"
-                android:textSize="28sp"
+                android:textSize="@dimen/title_text_size"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/subtitle_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:paddingHorizontal="24dp"
+                android:layout_marginTop="@dimen/subtitle_top_padding"
+                android:paddingHorizontal="@dimen/profile_view_padding"
                 android:text="@string/subtitle_main_screen"
-                android:textSize="20sp" />
+                android:textSize="@dimen/subtitle_text_size" />
         </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/networks_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="32dp" >
+            android:layout_marginHorizontal="@dimen/profile_view_padding"
+            android:layout_marginTop="@dimen/network_link_top_margin">
 
             <include
                 android:id="@+id/network_item_1"
                 layout="@layout/view_network_item"
-                android:layout_width="150dp"
+                android:layout_width="@dimen/network_link_width"
                 android:layout_height="wrap_content" />
 
             <include
                 android:id="@+id/network_item_2"
                 layout="@layout/view_network_item"
-                android:layout_width="150dp"
+                android:layout_width="@dimen/network_link_width"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="@dimen/network_link_margin"
                 android:layout_toEndOf="@id/network_item_1" />
 
             <include
                 android:id="@+id/network_item_3"
                 layout="@layout/view_network_item"
-                android:layout_width="150dp"
+                android:layout_width="@dimen/network_link_width"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/network_item_1"
-                android:layout_marginTop="20dp" />
+                android:layout_marginTop="@dimen/network_link_margin" />
 
             <include
                 android:id="@+id/network_item_4"
                 layout="@layout/view_network_item"
-                android:layout_width="150dp"
+                android:layout_width="@dimen/network_link_width"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/network_item_2"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="@dimen/network_link_margin"
+                android:layout_marginTop="@dimen/network_link_margin"
                 android:layout_toEndOf="@id/network_item_3" />
 
             <include
                 android:id="@+id/network_item_5"
                 layout="@layout/view_network_item"
-                android:layout_width="150dp"
+                android:layout_width="@dimen/network_link_width"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="80dp"
                 android:layout_below="@id/network_item_4"
                 android:layout_gravity="center_horizontal"
-                />
+                android:layout_marginStart="@dimen/network_stand_alone_link_start_margin"
+                android:layout_marginTop="@dimen/network_link_margin" />
         </RelativeLayout>
 
     </LinearLayout>
@@ -106,13 +105,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="24dp"
+        android:layout_margin="@dimen/profile_view_padding"
+        android:backgroundTint="?attr/colorPrimary"
+        android:contentDescription="@string/profile_activity_fab_description"
         android:clickable="true"
         android:focusable="true"
-        android:contentDescription="@string/profile_activity_fab_description"
-        android:backgroundTint="?attr/colorPrimary"
-        app:tint="?attr/colorOnPrimary"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.FAB"
         app:srcCompat="@drawable/ic_chevron_right"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.FAB" />
+        app:tint="?attr/colorOnPrimary" />
 
 </FrameLayout>

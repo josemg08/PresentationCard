@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Profile screen sizes -->
+    <dimen name="profile_view_padding">24dp</dimen>
+
+    <dimen name="profile_image_size">200dp</dimen>
+    <dimen name="profile_image_top_padding">100dp</dimen>
+    <dimen name="profile_image_start_padding">48dp</dimen>
+    <dimen name="profile_image_end_padding">32dp</dimen>
+
+    <dimen name="title_container_top_padding">24dp</dimen>
+    <dimen name="subtitle_top_padding">8dp</dimen>
+    <dimen name="title_text_size">28sp</dimen>
+    <dimen name="subtitle_text_size">20sp</dimen>
+
+    <dimen name="network_link_top_margin">32dp</dimen>
+    <dimen name="network_link_width">150dp</dimen>
+    <dimen name="network_link_margin">20dp</dimen>
+    <dimen name="network_stand_alone_link_start_margin">80dp</dimen>
+
+    <!-- view_network sizes -->
+    <dimen name="network_icon_size">25dp</dimen>
+    <dimen name="network_text_start_margin">5dp</dimen>
+    <dimen name="network_text_size">16sp</dimen>
+
+    <!-- Education screen sizes -->
     <dimen name="status_bar_height">36dp</dimen>
 </resources>

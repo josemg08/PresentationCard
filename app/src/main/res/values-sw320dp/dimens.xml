@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--.___
+    ================================================================================
+                SCREEN COMPATIBILITY: IMPORTANT DIMENSION GUIDELINES
+    ================================================================================
+    For optimal support on smaller screens, define scaled dimensions.
+    As a general rule, multiply default dimensions by 0.75 for smaller screen variants.
+
+    Further information on screen compatibility:
+    - Screen Compatibility Overview: https://developer.android.com/guide/practices/screens_support.html#NewQualifiers
+    - Supporting Different Pixel Densities: https://developer.android.com/training/multiscreen/screendensities
+    - Support Different Display Sizes: https://developer.android.com/develop/ui/compose/layouts/adaptive/support-different-display-sizes
+__.-->
+
+<resources>
+    <!-- Profile screen sizes -->
+    <dimen name="profile_view_padding">18dp</dimen>
+
+    <dimen name="profile_image_size">150dp</dimen>
+    <dimen name="profile_image_top_padding">75dp</dimen>
+    <dimen name="profile_image_start_padding">36dp</dimen>
+    <dimen name="profile_image_end_padding">24dp</dimen>
+
+    <dimen name="title_container_top_padding">18dp</dimen>
+    <dimen name="subtitle_top_padding">6dp</dimen>
+    <dimen name="title_text_size">21sp</dimen>
+    <dimen name="subtitle_text_size">15sp</dimen>
+
+    <dimen name="network_link_top_margin">24dp</dimen>
+    <dimen name="network_link_width">112.5dp</dimen>
+    <dimen name="network_link_margin">15dp</dimen>
+    <dimen name="network_stand_alone_link_start_margin">60dp</dimen>
+
+    <!-- view_network sizes -->
+    <dimen name="network_icon_size">18.75dp</dimen>
+    <dimen name="network_text_start_margin">3.75dp</dimen>
+    <dimen name="network_text_size">12sp</dimen>
+
+    <!-- Education screen sizes -->
+    <dimen name="status_bar_height">27dp</dimen>
+</resources>

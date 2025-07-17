@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/network_icon"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="@dimen/network_icon_size"
+        android:layout_height="@dimen/network_icon_size"
         android:src="@drawable/ic_email"
         app:tint="?android:attr/textColorPrimary" />
 
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:layout_marginStart="5dp"
-        android:textSize="16sp"
+        android:layout_marginStart="@dimen/network_text_start_margin"
+        android:textSize="@dimen/network_text_size"
         android:text="Network" />
 </LinearLayout>
