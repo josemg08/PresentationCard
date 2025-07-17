@@ -37,7 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
         initLinkedInLink();
         initEmailLink();
         initGithubLink();
-        initBitbucketLink();
+        initPhoneDialerLink();
     }
 
     private void initLinkedInLink() {
@@ -110,18 +110,24 @@ public class ProfileActivity extends AppCompatActivity {
         text.setText(getString(R.string.github));
     }
 
-    private void initBitbucketLink() {
+    private void initPhoneDialerLink() {
         View networkItem = findViewById(R.id.network_item_4);
         networkItem.setOnClickListener(v -> {
-            String url = getString(R.string.bitbucket_link);
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            startActivity(intent);
+            dialPhone();
         });
         ImageView icon = networkItem.findViewById(R.id.network_icon);
         TextView text = networkItem.findViewById(R.id.network_text);
-        icon.setImageResource(R.drawable.ic_bitbucket);
-        text.setText(getString(R.string.bitbucket));
+        icon.setImageResource(R.drawable.ic_phone);
+        text.setText(getString(R.string.phoneCall));
+    }
+
+    private void dialPhone() {
+        // Create an Intent with the ACTION_DIAL action
+        Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+        dialIntent.setData(Uri.parse(getString(R.string.phone_call_intent)));
+
+        // Start the activity, which will open the dialer app
+        startActivity(dialIntent);
     }
 
     private void setStatusBarColor() {
