@@ -46,8 +46,10 @@ This project teaches the following Android development concepts:
 
 ### 📸 App Screenshots
 
-![Presentation Card Banner](app/src/main/assets/readme_images/readme_showcase_image_1.png)
-![Presentation Card Banner](app/src/main/assets/readme_images/readme_showcase_image_2.png)
+<div align="center">
+   <img src="app/src/main/assets/readme_images/readme_showcase_image_2.png" width="20%">
+   <img src="app/src/main/assets/readme_images/readme_showcase_image_1.png" width="60%">
+</div>
 
 ## 🚀 Getting Started
 
