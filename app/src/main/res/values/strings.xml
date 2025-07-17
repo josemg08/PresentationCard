@@ -2,7 +2,19 @@
     <string name="app_name">PresentationCard</string>
     <string name="subtitle_main_screen">Developer</string>
     <string name="linkedin">LinkedIn</string>
-    <string name="Github" translatable="false">Github</string>
-    <string name="Bitbucket" translatable="false">Bitbucket</string>
+    <string name="github" translatable="false">Github</string>
+    <string name="bitbucket" translatable="false">Bitbucket</string>
     <string name="email" translatable="false">E-mail</string>
+
+    <!-- networks TODO add your profile names and proper links with translations if needed -->
+    <string name="my_email" translatable="false">sample@email.com</string>
+    <string name="linked_in_deeplink" translatable="false">linkedin://in/williamhgates</string>
+    <string name="linked_in_link" translatable="false">https://www.linkedin.com/in/williamhgates</string> <!--TODO add translations with link for different profile languages -->
+    <string name="github_link" translatable="false">https://www.github.com</string>
+    <string name="bitbucket_link" translatable="false">https://www.bitbucket.com</string>
+
+    <!-- error messages -->
+    <string name="no_email_message" translatable="false">No email app found</string>
+    <string name="no_linkedin_app_error" translatable="false">LinkedIn app not found, opening in browser.</string>
+
 </resources>
