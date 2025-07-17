@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">PresentationCard</string>
-    <string name="subtitle_main_screen">Developer</string>
+    <string name="title" translatable="false">Pesentation Card</string>
+    <string name="subtitle_main_screen">I pour my passion into crafting Android apps that truly connect with users.
+My joy is in solving real-world problems through elegant code.</string>
     <string name="linkedin">LinkedIn</string>
     <string name="github" translatable="false">Github</string>
     <string name="phoneCall" translatable="false">Call</string>
     <string name="email" translatable="false">E-mail</string>
+    <string name="whatsapp" translatable="false">Whatsapp</string>
 
     <!-- networks TODO add your profile names and proper links with translations if needed -->
     <string name="my_email" translatable="false">sample@email.com</string>
@@ -16,5 +19,8 @@
     <!-- error messages -->
     <string name="no_email_message" translatable="false">No email app found</string>
     <string name="no_linkedin_app_error" translatable="false">LinkedIn app not found, opening in browser.</string>
+
+    <!-- Content descriptions -->
+    <string name="profile_activity_fab_description" translatable="false">Advance to next screen</string>
 
 </resources>

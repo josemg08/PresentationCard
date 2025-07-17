@@ -39,10 +39,10 @@
                     android:id="@+id/title_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Title"
+                    android:text="@string/title"
                     android:textStyle="bold"
                     android:textSize="28sp"
-                    android:paddingStart="24dp"/>
+                    android:paddingHorizontal="24dp"/>
 
                 <TextView
                     android:id="@+id/subtitle_text"
@@ -51,7 +51,7 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/subtitle_main_screen"
                     android:textSize="20sp"
-                    android:paddingStart="24dp" />
+                    android:paddingHorizontal="24dp" />
             </LinearLayout>
 
             <RelativeLayout
@@ -93,24 +93,33 @@
                     android:layout_below="@id/network_item_2"
                     android:layout_toEndOf="@id/network_item_3" />
 
+                <include
+                    android:id="@+id/network_item_5"
+                    layout="@layout/view_network_item"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="80dp"
+                    android:layout_below="@id/network_item_4"
+                    android:layout_gravity="center_horizontal"
+                    />
             </RelativeLayout>
 
         </LinearLayout>
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_next"
-        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="24dp"
-        android:backgroundTint="@color/design_default_color_primary"
-        android:text="More"
-        android:textColor="@android:color/white"
-        app:icon="@drawable/ic_chevron_right"
-        app:iconGravity="textEnd"
-        app:iconPadding="8dp"
-        app:cornerRadius="28dp"
-        app:iconTint="@android:color/white" />
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/profile_activity_fab_description"
+        android:backgroundTint="?attr/colorPrimary"
+        app:tint="?attr/colorOnPrimary"
+        app:srcCompat="@drawable/ic_chevron_right"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.FAB" />
+
 </FrameLayout>

@@ -1,5 +1,7 @@
 package com.example.presentationcard;
 
+import static com.example.presentationcard.Constants.EXTRA_STRING_KEY;
+
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -10,7 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -31,6 +36,13 @@ public class ProfileActivity extends AppCompatActivity {
         }*/
 
         initNetworkLinks();
+
+        FloatingActionButton fab = findViewById(R.id.fab_next);
+        fab.setOnClickListener(view -> {
+            Intent intent = new Intent(ProfileActivity.this, EducationActivity.class);
+            intent.putExtra(EXTRA_STRING_KEY, "Hello from ProfileActivity!");
+            startActivity(intent);
+        });
     }
 
     private void initNetworkLinks() {
@@ -38,13 +50,12 @@ public class ProfileActivity extends AppCompatActivity {
         initEmailLink();
         initGithubLink();
         initPhoneDialerLink();
+        initWhatsappLink();
     }
 
     private void initLinkedInLink() {
         View networkItem = findViewById(R.id.network_item_2);
-        networkItem.setOnClickListener(v -> {
-            openLinkedIn();
-        });
+        networkItem.setOnClickListener(v -> openLinkedIn());
         ImageView icon = networkItem.findViewById(R.id.network_icon);
         TextView text = networkItem.findViewById(R.id.network_text);
         icon.setImageResource(R.drawable.ic_linkedin);
@@ -112,9 +123,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void initPhoneDialerLink() {
         View networkItem = findViewById(R.id.network_item_4);
-        networkItem.setOnClickListener(v -> {
-            dialPhone();
-        });
+        networkItem.setOnClickListener(v -> dialPhone());
         ImageView icon = networkItem.findViewById(R.id.network_icon);
         TextView text = networkItem.findViewById(R.id.network_text);
         icon.setImageResource(R.drawable.ic_phone);
@@ -128,6 +137,23 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Start the activity, which will open the dialer app
         startActivity(dialIntent);
+    }
+
+    private void initWhatsappLink() {
+        View networkItem = findViewById(R.id.network_item_5);
+        networkItem.setOnClickListener(v -> goToWhatsapp());
+        ImageView icon = networkItem.findViewById(R.id.network_icon);
+        TextView text = networkItem.findViewById(R.id.network_text);
+        icon.setImageResource(R.drawable.ic_whatsapp);
+        text.setText(getString(R.string.whatsapp));
+    }
+
+    private void goToWhatsapp() {
+        // Create an Intent to open WhatsApp chat with your number using this URL as intent data
+        String url = "https://api.whatsapp.com/send?phone=5555555";
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
     }
 
     private void setStatusBarColor() {
@@ -197,7 +223,7 @@ public class ProfileActivity extends AppCompatActivity {
      * Saves the state of the activity.
      */
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
     }
 }
