@@ -1,6 +1,6 @@
 # Android Presentation Card App 📱
 
-![Presentation Card Banner](app/src/main/assets/readme_banner.png)
+![Presentation Card Banner](app/src/main/assets/readme_images/readme_banner.png)
 
 A comprehensive Android sample project designed to teach fundamental Android development concepts through building a practical presentation card application. This project serves as a hands-on learning experience for beginners to understand core Android components and modern development practices.
 
@@ -43,6 +43,11 @@ This project teaches the following Android development concepts:
 - Card-based layouts for information display
 - Custom backgrounds with border strokes
 - Icon integration and tinting
+
+### 📸 App Screenshots
+
+![Presentation Card Banner](app/src/main/assets/readme_images/readme_showcase_image_1.png)
+![Presentation Card Banner](app/src/main/assets/readme_images/readme_showcase_image_2.png)
 
 ## 🚀 Getting Started
 
