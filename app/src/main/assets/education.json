@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Bachelor of Science in Computer Science",
+    "description": "Studied core computer science concepts, programming, and software engineering.",
+    "image": "android_university_banner"
+  },
+  {
+    "title": "Master of Data Science",
+    "description": "Specialized in machine learning, big data analytics, and data visualization.",
+    "image": "android_university_banner"
+  },
+  {
+    "title": "Android Development Bootcamp",
+    "description": "Intensive training in Android app development, UI/UX, and publishing apps.",
+    "image": "android_university_banner"
+  }
+]

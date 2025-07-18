@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="horizontal"
     android:background="@drawable/network_item_ripple_background"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:gravity="center"
+    android:orientation="horizontal" >
 
     <ImageView
         android:id="@+id/network_icon"
@@ -20,8 +20,8 @@
         android:id="@+id/network_text"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:layout_marginStart="@dimen/network_text_start_margin"
-        android:textSize="@dimen/network_text_size"
-        android:text="Network" />
+        android:gravity="center"
+        android:text="Network"
+        android:textSize="@dimen/network_text_size" />
 </LinearLayout>

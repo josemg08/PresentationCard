@@ -1,4 +1,4 @@
-package com.example.presentationcard;
+package com.example.presentationcard.views;
 
 import static com.example.presentationcard.Constants.EXTRA_STRING_KEY;
 
@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.presentationcard.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ProfileActivity extends AppCompatActivity {

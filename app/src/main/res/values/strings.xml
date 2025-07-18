@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">PresentationCard</string>
-    <string name="title" translatable="false">Pesentation Card</string>
-    <string name="subtitle_main_screen">I pour my passion into crafting Android apps that truly connect with users.
+
+    <!-- Profile screen -->
+    <string name="profile_title" translatable="false">Pesentation Card</string>
+    <string name="profile_subtitle">I pour my passion into crafting Android apps that truly connect with users.
 My joy is in solving real-world problems through elegant code.</string>
     <string name="linkedin">LinkedIn</string>
     <string name="github" translatable="false">Github</string>
@@ -22,5 +24,8 @@ My joy is in solving real-world problems through elegant code.</string>
 
     <!-- Content descriptions -->
     <string name="profile_activity_fab_description" translatable="false">Advance to next screen</string>
+
+    <!-- Education screen -->
+    <string name="education_title" translatable="false">Pesentation Card</string>
 
 </resources>

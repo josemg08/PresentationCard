@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">CartaPresentacion</string>
-    <string name="subtitle_main_screen">Desarrollador</string>
+    <string name="profile_subtitle">Desarrollador</string>
     <string name="linkedin">LinkedIn</string>
 </resources>

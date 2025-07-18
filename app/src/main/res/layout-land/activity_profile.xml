@@ -2,14 +2,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" >
 
     <LinearLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal" >
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profile_image"
@@ -26,21 +26,21 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
             <LinearLayout
                 android:id="@+id/title_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:orientation="vertical" >
 
                 <TextView
                     android:id="@+id/title_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="@dimen/profile_view_padding"
-                    android:text="@string/title"
+                    android:text="@string/profile_title"
                     android:textSize="@dimen/title_text_size"
                     android:textStyle="bold" />
 
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/subtitle_top_padding"
                     android:paddingHorizontal="@dimen/profile_view_padding"
-                    android:text="@string/subtitle_main_screen"
+                    android:text="@string/profile_subtitle"
                     android:textSize="@dimen/subtitle_text_size" />
             </LinearLayout>
 
@@ -59,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/profile_view_padding"
-                android:layout_marginTop="@dimen/network_link_top_margin">
+                android:layout_marginTop="@dimen/network_link_top_margin" >
 
                 <include
                     android:id="@+id/network_item_1"
@@ -114,8 +114,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/profile_view_padding"
         android:backgroundTint="?attr/colorPrimary"
-        android:contentDescription="@string/profile_activity_fab_description"
         android:clickable="true"
+        android:contentDescription="@string/profile_activity_fab_description"
         android:focusable="true"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.FAB"
         app:srcCompat="@drawable/ic_chevron_right"
