@@ -16,7 +16,12 @@
             android:layout_height="wrap_content"
             android:text="Education Info"/>
 
-        <!-- Add more content here and it will be scrollable -->
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Escriba aqui"
+            android:inputType="text"/>
 
     </LinearLayout>
 
