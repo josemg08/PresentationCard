@@ -40,7 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fab_next);
         fab.setOnClickListener(view -> {
-            Intent intent = new Intent(ProfileActivity.this, EducationActivity.class);
+            Intent intent = new Intent(this, EducationActivity.class);
             intent.putExtra(EXTRA_STRING_KEY, "Hello from ProfileActivity!");
             startActivity(intent);
         });

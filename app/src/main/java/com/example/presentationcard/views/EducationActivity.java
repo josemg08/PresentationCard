@@ -37,8 +37,8 @@ public class EducationActivity extends AppCompatActivity {
         // Set up RecyclerView
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<EducationItem> items = loadEducationItems();
-        recyclerView.setAdapter(new EducationAdapter(this, items));
+        List<EducationItem> educationItems = loadEducationItems();
+        recyclerView.setAdapter(new EducationAdapter(this, educationItems));
     }
 
     // Extracting a list of EducationItem models from local Json file
