@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,14 +54,16 @@ public class EducationAdapter extends RecyclerView.Adapter<EducationAdapter.Educ
         int resourceId = context.getResources().getIdentifier(item.image, "drawable", context.getPackageName());
         holder.imageView.setImageResource(resourceId);
 
-        // Set checkbox state based on the item's isSelected value
-        holder.selectedCheckbox.setChecked(item.isSelected);
+        // Set favorite icon state based on the item's isSelected value
+        // The drawable selector will automatically show the correct icon
+        holder.favoriteIcon.setSelected(item.isSelected);
 
-        // Handle checkbox click - save entire JSON when state changes
-        holder.selectedCheckbox.setOnCheckedChangeListener(null); // Clear previous listener
-        holder.selectedCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            // Update the item's state
-            item.isSelected = isChecked;
+        // Handle favorite icon click - toggle state and save JSON
+        holder.favoriteIcon.setOnClickListener(v -> {
+            // Toggle the item's state
+            item.isSelected = !item.isSelected;
+            // Update the visual state - selector will handle icon switching
+            holder.favoriteIcon.setSelected(item.isSelected);
             // Save the entire JSON file with updated state
             saveEntireJsonFile();
         });
@@ -140,14 +141,14 @@ public class EducationAdapter extends RecyclerView.Adapter<EducationAdapter.Educ
         ImageView imageView;
         TextView titleTextView;
         TextView descriptionTextView;
-        CheckBox selectedCheckbox;
+        ImageView favoriteIcon;
 
         public EducationViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
-            selectedCheckbox = itemView.findViewById(R.id.selectedCheckbox);
+            favoriteIcon = itemView.findViewById(R.id.favoriteIcon);
         }
     }
 }

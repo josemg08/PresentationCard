@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Selected state - use filled heart -->
+    <item android:state_selected="true" android:drawable="@drawable/ic_favorite_filled" />
+    <!-- Default state - use outlined heart -->
+    <item android:drawable="@drawable/ic_favorite_outline" />
+</selector>
+
