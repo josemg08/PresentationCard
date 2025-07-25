@@ -45,15 +45,9 @@ public class EducationActivity extends AppCompatActivity {
     // Extracting a list of EducationItem models from local Json file
     private List<EducationItem> loadEducationItems() {
         List<EducationItem> educationItemModels = new ArrayList<>();
-        // Try to prevent crashes is the json file cant be located
+        // Try to prevent crashes if the json file can't be located
         try {
-            InputStream inputStream = getAssets().open(JSON_FILE_NAME);
-            int size = inputStream.available();
-            byte[] buffer = new byte[size];
-            inputStream.read(buffer);
-            inputStream.close();
-            // After reading the file we move each element of the json to an array, for ease of sorting
-            String json = new String(buffer, StandardCharsets.UTF_8);
+            String json = readJsonFile();
             JSONArray array = new JSONArray(json);
             for (int i = 0; i < array.length(); i++) {
                 JSONObject objectFromJson = array.getJSONObject(i);
@@ -71,5 +65,33 @@ public class EducationActivity extends AppCompatActivity {
         }
         // Finally we return the list of
         return educationItemModels;
+    }
+
+    /**
+     * Reads JSON file, prioritizing internal storage over assets
+     *<p>
+     * This ensures user selections persist across app sessions while maintaining
+     * the original data structure for new installations.
+     *
+     * @return JSON string content from internal storage or assets fallback
+     */
+    private String readJsonFile() throws Exception {
+        // First, check if the file exists in internal storage (user's saved preferences)
+        try {
+            java.io.FileInputStream fis = openFileInput(JSON_FILE_NAME);
+            int size = fis.available();
+            byte[] buffer = new byte[size];
+            fis.read(buffer);
+            fis.close();
+            return new String(buffer, StandardCharsets.UTF_8);
+        } catch (java.io.FileNotFoundException e) {
+            // File doesn't exist in internal storage, fall back to original assets file
+            InputStream inputStream = getAssets().open(JSON_FILE_NAME);
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+            inputStream.close();
+            return new String(buffer, StandardCharsets.UTF_8);
+        }
     }
 }
