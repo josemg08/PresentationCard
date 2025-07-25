@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="200dp"
     android:layout_marginVertical="@dimen/item_education_card_vertical_padding"
     android:clickable="true"
     android:focusable="true"
@@ -16,20 +16,6 @@
         android:orientation="horizontal"
         android:padding="@dimen/item_education_card_inner_padding">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="@dimen/item_education_card_image_size"
-            android:layout_height="@dimen/item_education_card_image_size"
-            android:layout_marginEnd="@dimen/item_education_card_inner_padding"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/android_sample_image" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
             <TextView
                 android:id="@+id/titleTextView"
                 android:layout_width="wrap_content"
@@ -38,13 +24,5 @@
                 android:textStyle="bold"
                 tools:text="Sample title" />
 
-            <TextView
-                android:id="@+id/descriptionTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/item_education_card_description_top_margin"
-                android:textSize="@dimen/item_education_card_description_text_size"
-                tools:text="Some dummy description" />
-        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
