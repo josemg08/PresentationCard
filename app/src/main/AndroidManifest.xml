@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".PresentationCardApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,14 +13,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PresentationCard"
         tools:targetApi="31">
+
+        <!-- Splash Activity - Main Launcher -->
         <activity
-            android:name=".views.ProfileActivity"
+            android:name=".views.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Welcome Activity - First Time Users -->
+        <activity
+            android:name=".views.WelcomeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- Profile Activity - Main App Screen -->
+        <activity
+            android:name=".views.ProfileActivity"
+            android:exported="false" />
+
+        <!-- Education Activities -->
         <activity
             android:name=".views.EducationActivity"
             android:exported="false"
