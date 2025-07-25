@@ -4,6 +4,7 @@ import static com.example.presentationcard.Constants.JSON_DESCRIPTION_KEY;
 import static com.example.presentationcard.Constants.JSON_FILE_NAME;
 import static com.example.presentationcard.Constants.JSON_IMAGE_KEY;
 import static com.example.presentationcard.Constants.JSON_TITLE_KEY;
+import static com.example.presentationcard.Constants.JSON_IS_SELECTED_KEY;
 
 import android.os.Bundle;
 
@@ -61,7 +62,8 @@ public class EducationActivity extends AppCompatActivity {
                 educationItemModels.add(new EducationItem(
                         objectFromJson.getString(JSON_TITLE_KEY),
                         objectFromJson.getString(JSON_DESCRIPTION_KEY),
-                        objectFromJson.getString(JSON_IMAGE_KEY)
+                        objectFromJson.getString(JSON_IMAGE_KEY),
+                        objectFromJson.getBoolean(JSON_IS_SELECTED_KEY)
                 ));
             }
         } catch (Exception e) {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,6 +44,18 @@ public class EducationAdapter extends RecyclerView.Adapter<EducationAdapter.Educ
         int resourceId = context.getResources().getIdentifier(item.image, "drawable", context.getPackageName());
         holder.imageView.setImageResource(resourceId);
 
+        // Set checkbox state
+        holder.selectedCheckbox.setChecked(item.isSelected);
+
+        /** Handle checkbox click
+        * official documentation: https://developer.android.com/reference/android/widget/CompoundButton
+        * */
+        holder.selectedCheckbox.setOnCheckedChangeListener(null); // Clear previous listener
+        holder.selectedCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            //TODO do something with isChecked value received from the checkbox,
+            // it will be true if selected false if not.
+        });
+
         // Handle item click to open detail view
         holder.itemView.setOnClickListener(v -> {
             android.content.Intent intent = new android.content.Intent(context, EducationDetailActivity.class);
@@ -58,16 +71,18 @@ public class EducationAdapter extends RecyclerView.Adapter<EducationAdapter.Educ
         return items.size();
     }
 
-    static class EducationViewHolder extends RecyclerView.ViewHolder {
+    public static class EducationViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView titleTextView;
         TextView descriptionTextView;
+        CheckBox selectedCheckbox;
 
         public EducationViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
+            selectedCheckbox = itemView.findViewById(R.id.selectedCheckbox);
         }
     }
 }

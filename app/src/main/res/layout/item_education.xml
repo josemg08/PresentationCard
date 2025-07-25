@@ -22,6 +22,7 @@
             android:layout_height="@dimen/item_education_card_image_size"
             android:layout_marginEnd="@dimen/item_education_card_inner_padding"
             android:scaleType="centerCrop"
+            android:layout_gravity="center_vertical"
             tools:src="@drawable/android_sample_image" />
 
         <LinearLayout
@@ -46,5 +47,13 @@
                 android:textSize="@dimen/item_education_card_description_text_size"
                 tools:text="Some dummy description" />
         </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/selectedCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="Select education item" />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

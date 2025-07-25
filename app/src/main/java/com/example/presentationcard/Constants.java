@@ -10,4 +10,5 @@ public class Constants {
     public static final String JSON_TITLE_KEY = "title";
     public static final String JSON_DESCRIPTION_KEY = "description";
     public static final String JSON_IMAGE_KEY = "image";
+    public static final String JSON_IS_SELECTED_KEY = "isSelected";
 }
