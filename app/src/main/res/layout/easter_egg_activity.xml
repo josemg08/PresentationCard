@@ -16,7 +16,7 @@
         android:paddingTop="@dimen/status_bar_height"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:navigationIconTint="?attr/colorOnPrimary"
-        app:title="Easter Egg"
+        app:title="@string/easter_egg_title"
         app:titleTextAppearance="@style/TextAppearance.App.Toolbar.Title"
         app:titleTextColor="?attr/colorOnPrimary" />
 

@@ -64,6 +64,15 @@ public class FlappyBirdView extends View {
         }
     };
 
+    // Game over callback
+    public interface GameOverListener {
+        void onGameOver(int score);
+    }
+    private GameOverListener gameOverListener;
+    public void setGameOverListener(GameOverListener listener) {
+        this.gameOverListener = listener;
+    }
+
     public FlappyBirdView(Context context) {
         super(context);
         init();
@@ -151,11 +160,13 @@ public class FlappyBirdView extends View {
             RectF bottomRect = new RectF(pipe.x, pipe.gapY + Pipe.gapHeight, pipe.x + Pipe.width, getHeight());
             if (circleIntersectsRect(birdX, birdY, birdRadius, topRect) || circleIntersectsRect(birdX, birdY, birdRadius, bottomRect)) {
                 gameOver = true;
+                if (gameOverListener != null) gameOverListener.onGameOver(score);
             }
         }
         // Out of bounds
         if (birdY - birdRadius < 0 || birdY + birdRadius > getHeight()) {
             gameOver = true;
+            if (gameOverListener != null) gameOverListener.onGameOver(score);
         }
     }
 

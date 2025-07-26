@@ -28,4 +28,7 @@ My joy is in solving real-world problems through elegant code.</string>
     <!-- Education screen -->
     <string name="education_title" translatable="false">Pesentation Card</string>
 
+    <!-- Easter Egg screen -->
+    <string name="easter_egg_title" translatable="false">Easter Egg</string>
+
 </resources>
