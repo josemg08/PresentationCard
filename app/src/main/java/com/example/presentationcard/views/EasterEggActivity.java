@@ -12,7 +12,6 @@ import com.example.presentationcard.R;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class EasterEggActivity extends AppCompatActivity implements FlappyBirdView.GameOverListener {
-    private FlappyBirdView flappyBirdView;
     private MaterialToolbar toolbar;
     private static final String PREFS_NAME = "easter_egg_prefs";
     private static final String KEY_TOP_SCORE = "top_score";
@@ -36,7 +35,7 @@ public class EasterEggActivity extends AppCompatActivity implements FlappyBirdVi
     }
 
     private void setupFlappyBirdViewAnimation() {
-        flappyBirdView = new FlappyBirdView(this);
+        FlappyBirdView flappyBirdView = new FlappyBirdView(this);
         flappyBirdView.setGameOverListener(this);
         // Add it to the container
         FrameLayout container = findViewById(R.id.game_container);
@@ -46,7 +45,7 @@ public class EasterEggActivity extends AppCompatActivity implements FlappyBirdVi
     private void updateToolbarTitle() {
         if (topScore > 0) {
             String baseTitle = getString(R.string.easter_egg_title);
-            toolbar.setTitle(baseTitle + " Top Score: " + topScore);
+            toolbar.setTitle(baseTitle + " - Top Score: " + topScore);
         }
     }
 

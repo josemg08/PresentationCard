@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
@@ -21,10 +22,8 @@ import java.util.Random;
 public class FlappyBirdView extends View {
     // Bird properties
     private float birdX, birdY;
-    private float birdRadius = 40f;
+    private final float birdRadius = 40f;
     private float birdVelocity = 0f;
-    private final float gravity = 1.2f;
-    private final float flapPower = -18f;
     private Paint birdPaint;
 
     // Pipe properties
@@ -38,13 +37,11 @@ public class FlappyBirdView extends View {
             this.gapY = gapY;
         }
     }
-    private List<Pipe> pipes = new ArrayList<>();
-    private final float pipeSpeed = 8f;
-    private final int pipeInterval = 1200; // ms
+    private final List<Pipe> pipes = new ArrayList<>();
     private long lastPipeTime = 0;
     private Paint pipePaint;
     private Paint pipeBorderPaint;
-    private Random random = new Random();
+    private final Random random = new Random();
 
     // Game state
     private boolean gameOver = false;
@@ -53,13 +50,14 @@ public class FlappyBirdView extends View {
     private Paint scorePaint;
 
     // Handler for game loop
-    private Handler handler = new Handler(Looper.getMainLooper());
-    private final int frameRate = 1000 / 60; // 60 FPS
-    private Runnable gameLoop = new Runnable() {
+    private final Handler handler = new Handler(Looper.getMainLooper());
+    private final Runnable gameLoop = new Runnable() {
         @Override
         public void run() {
             update();
             invalidate();
+            // 60 FPS
+            int frameRate = 1000 / 60;
             handler.postDelayed(this, frameRate);
         }
     };
@@ -133,10 +131,13 @@ public class FlappyBirdView extends View {
             return;
         }
         // Bird physics
+        float gravity = 1.2f;
         birdVelocity += gravity;
         birdY += birdVelocity;
         // Pipes
         long now = System.currentTimeMillis();
+        // ms
+        int pipeInterval = 1200;
         if (now - lastPipeTime > pipeInterval) {
             float gapY = birdRadius * 2 + random.nextInt((int)(getHeight() - Pipe.gapHeight - birdRadius * 4));
             pipes.add(new Pipe(getWidth(), gapY));
@@ -145,6 +146,7 @@ public class FlappyBirdView extends View {
         Iterator<Pipe> it = pipes.iterator();
         while (it.hasNext()) {
             Pipe pipe = it.next();
+            float pipeSpeed = 8f;
             pipe.x -= pipeSpeed;
             // Remove off-screen pipes
             if (pipe.x + Pipe.width < 0) {
@@ -179,7 +181,7 @@ public class FlappyBirdView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
         // Background
         canvas.drawColor(Color.rgb(135, 206, 250)); // Sky blue
@@ -223,7 +225,7 @@ public class FlappyBirdView extends View {
             } else if (gameOver) {
                 resetGame();
             } else {
-                birdVelocity = flapPower;
+                birdVelocity = -18f;
             }
             return true;
         }
