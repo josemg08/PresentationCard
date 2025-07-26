@@ -44,6 +44,12 @@
             android:name=".views.EducationDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+
+        <!-- EasterEgg Activities -->
+        <activity
+            android:name=".views.EasterEggActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
     </application>
     <queries>
         <intent>

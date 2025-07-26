@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +20,21 @@ import com.example.presentationcard.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ProfileActivity extends AppCompatActivity {
+
+    private static final float ROTATION_THRESHOLD = 10.0f; // Minimum rotation angle to detect
+
+    // Rotation gesture tracking variables
+    private boolean isRotating = false;
+    private float initialAngle = 0.0f;
+    private float currentRotation = 0.0f;
+    private float lastRotation = 0.0f;
+
+    // Easter egg variables
+    private int clickCounter = 0;
+    private boolean rotationEnabled = false;
+    private boolean hasRotated180 = false;
+    private static final int REQUIRED_CLICKS = 10;
+    private static final float TARGET_ROTATION = 180.0f;
 
     /**
      * Called when the activity is first created. Used to initialize the activity.
@@ -37,6 +53,8 @@ public class ProfileActivity extends AppCompatActivity {
         }*/
 
         initNetworkLinks();
+        setupGestureDetection();
+        setupProfileImageClickListener();
 
         FloatingActionButton fab = findViewById(R.id.fab_next);
         fab.setOnClickListener(view -> {
@@ -44,6 +62,178 @@ public class ProfileActivity extends AppCompatActivity {
             intent.putExtra(EXTRA_STRING_KEY, "Hello from ProfileActivity!");
             startActivity(intent);
         });
+    }
+
+    /**
+     * Sets up gesture detection for the main layout
+     */
+    private void setupGestureDetection() {
+        View mainLayout = findViewById(R.id.main);
+        mainLayout.setOnTouchListener(this::onTouchEvent);
+    }
+
+    /**
+     * Handles touch events for rotation gesture detection
+     */
+    private boolean onTouchEvent(View view, MotionEvent event) {
+        // Only allow rotation if it's been enabled through the Easter egg sequence
+        if (!rotationEnabled) {
+            return false; // Don't consume the event if rotation is disabled
+        }
+
+        int pointerCount = event.getPointerCount();
+
+        switch (event.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                // Reset rotation tracking
+                isRotating = false;
+                currentRotation = 0.0f;
+                lastRotation = 0.0f;
+                break;
+
+            case MotionEvent.ACTION_POINTER_DOWN:
+                if (pointerCount == 2) {
+                    // Two fingers down - start tracking rotation
+                    initialAngle = getAngleBetweenFingers(event);
+                    isRotating = true;
+                }
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                if (pointerCount == 2 && isRotating) {
+                    float currentAngle = getAngleBetweenFingers(event);
+                    float angleDifference = currentAngle - initialAngle;
+
+                    // Normalize angle to -180 to 180 degrees
+                    angleDifference = normalizeAngle(angleDifference);
+
+                    // Update rotation only if significant change
+                    if (Math.abs(angleDifference - lastRotation) > ROTATION_THRESHOLD) {
+                        currentRotation = angleDifference;
+                        onRotationDetected(currentRotation);
+                        lastRotation = currentRotation;
+                    }
+                }
+                break;
+
+            case MotionEvent.ACTION_POINTER_UP:
+            case MotionEvent.ACTION_UP:
+                if (isRotating) {
+                    onRotationEnded(currentRotation);
+                    isRotating = false;
+                }
+                break;
+        }
+
+        return true; // Consume the event
+    }
+
+    /**
+     * Calculates the angle between two fingers in degrees
+     */
+    private float getAngleBetweenFingers(MotionEvent event) {
+        if (event.getPointerCount() < 2) {
+            return 0.0f;
+        }
+
+        float deltaX = event.getX(1) - event.getX(0);
+        float deltaY = event.getY(1) - event.getY(0);
+
+        return (float) Math.toDegrees(Math.atan2(deltaY, deltaX));
+    }
+
+    /**
+     * Normalizes angle to range [-180, 180]
+     */
+    private float normalizeAngle(float angle) {
+        while (angle > 180) angle -= 360;
+        while (angle < -180) angle += 360;
+        return angle;
+    }
+
+    /**
+     * Called when rotation is detected during gesture
+     *
+     * @param rotationAngle The current rotation angle in degrees
+     */
+    private void onRotationDetected(float rotationAngle) {
+        // Rotate the profile image smoothly with the gesture
+        ImageView profileImage = findViewById(R.id.profile_image);
+        if (profileImage != null) {
+            // Apply rotation directly for real-time feedback
+            profileImage.setRotation(rotationAngle);
+
+            // Optional: Add scaling effect for enhanced visual feedback
+            float scale = 1.0f + Math.abs(rotationAngle) / 360.0f * 0.1f; // Slight scale increase
+            profileImage.setScaleX(scale);
+            profileImage.setScaleY(scale);
+        }
+    }
+
+    /**
+     * Called when rotation gesture ends
+     *
+     * @param finalRotationAngle The final rotation angle in degrees
+     */
+    private void onRotationEnded(float finalRotationAngle) {
+        ImageView profileImage = findViewById(R.id.profile_image);
+        if (profileImage == null) return;
+
+        // Handle the final rotation result
+        if (Math.abs(finalRotationAngle) > 45) {
+            // Animate to a "snapped" rotation position based on the final angle
+            float targetRotation = getSnappedRotation(finalRotationAngle);
+
+            // Check if user achieved 180-degree rotation for Easter egg
+            if (!hasRotated180 && Math.abs(targetRotation) == TARGET_ROTATION) {
+                hasRotated180 = true;
+
+                // Special visual feedback for achieving 180 degrees
+                profileImage.animate()
+                        .rotation(targetRotation)
+                        .scaleX(1.1f)
+                        .scaleY(1.1f)
+                        .setDuration(300)
+                        .withEndAction(() -> profileImage.animate()
+                                .scaleX(1.0f)
+                                .scaleY(1.0f)
+                                .setDuration(200)
+                                .start())
+                        .start();
+            } else {
+                // Normal rotation animation
+                profileImage.animate()
+                        .rotation(targetRotation)
+                        .scaleX(1.0f)
+                        .scaleY(1.0f)
+                        .setDuration(500)
+                        .start();
+            }
+        } else {
+            // Small rotation - return to original position
+            profileImage.animate()
+                    .rotation(0)
+                    .scaleX(1.0f)
+                    .scaleY(1.0f)
+                    .setDuration(300)
+                    .start();
+        }
+    }
+
+    /**
+     * Snaps rotation to nearest 90-degree increment for significant rotations
+     *
+     * @param angle The input rotation angle
+     * @return The snapped angle
+     */
+    private float getSnappedRotation(float angle) {
+        // Snap to nearest 90-degree increment for large rotations
+        if (Math.abs(angle) > 135) {
+            return angle > 0 ? 180 : -180;
+        } else if (Math.abs(angle) > 45) {
+            return angle > 0 ? 90 : -90;
+        }
+        return 0;
     }
 
     private void initNetworkLinks() {
@@ -226,5 +416,46 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+    }
+
+    private void setupProfileImageClickListener() {
+        ImageView profileImage = findViewById(R.id.profile_image);
+        profileImage.setOnClickListener(v -> handleProfileImageClick());
+    }
+
+    /**
+     * Handles profile image clicks for Easter egg sequence
+     */
+    private void handleProfileImageClick() {
+        clickCounter++;
+
+        if (!rotationEnabled && clickCounter == REQUIRED_CLICKS) {
+            // First phase: Enable rotation after 10 clicks
+            rotationEnabled = true;
+
+            // Visual feedback - brief scaling animation
+            ImageView profileImage = findViewById(R.id.profile_image);
+            profileImage.animate()
+                    .scaleX(1.2f)
+                    .scaleY(1.2f)
+                    .setDuration(200)
+                    .withEndAction(() -> {
+                        profileImage.animate()
+                                .scaleX(1.0f)
+                                .scaleY(1.0f)
+                                .setDuration(200)
+                                .start();
+                    })
+                    .start();
+
+        } else if (hasRotated180 && clickCounter >= (REQUIRED_CLICKS + 1)) {
+            // Second phase: Navigate to Easter egg after rotating 180° and click
+            navigateToEasterEgg();
+        }
+    }
+
+    private void navigateToEasterEgg() {
+        Intent intent = new Intent(this, EasterEggActivity.class);
+        startActivity(intent);
     }
 }
