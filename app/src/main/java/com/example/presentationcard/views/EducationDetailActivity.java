@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.presentationcard.R;
+import com.google.android.material.appbar.MaterialToolbar;
 
 public class EducationDetailActivity extends AppCompatActivity {
     @Override
@@ -15,8 +16,11 @@ public class EducationDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_education_detail);
 
+        // Set up the toolbar
+        MaterialToolbar toolbar = findViewById(R.id.topAppBar);
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+
         ImageView imageView = findViewById(R.id.detailImageView);
-        TextView titleTextView = findViewById(R.id.detailTitleTextView);
         TextView descriptionTextView = findViewById(R.id.detailDescriptionTextView);
 
         Intent intent = getIntent();
@@ -24,7 +28,7 @@ public class EducationDetailActivity extends AppCompatActivity {
         String description = intent.getStringExtra("description");
         String image = intent.getStringExtra("image");
 
-        titleTextView.setText(title);
+        toolbar.setTitle(title);
         descriptionTextView.setText(description);
 
         // Load image from drawable resources
