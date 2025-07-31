@@ -76,6 +76,117 @@ This project teaches the following Android development concepts:
    - Wait for the build to complete
    - Run the app on an emulator or physical device
 
+## 📖 Learning Path & Project Structure
+
+### Module 1: Android Fundamentals (Branch: main)
+#### Project Architecture
+- **Project Structure**
+  - Android Manifest configuration
+  - Gradle build system setup
+  - Resource management:
+    - Layouts (Portrait/Landscape orientations)
+    - Drawables (mipmap, SVG, density-specific resources)
+    - Values (colors, strings, multi-language support)
+    - Themes & Styles (Light/Dark mode support)
+    - XML resource handling
+
+#### UI Development Basics
+- **Activities & Views**
+  - Activity setup with `setContentView`
+  - View binding with `findViewById`
+  - View listeners implementation
+- **Core UI Components**
+  - Buttons and click handling
+  - TextViews for display
+  - EditText for user input
+  - ImageView management
+- **Layout Types**
+  - LinearLayout usage
+  - ScrollView implementation
+  - RelativeLayout structuring
+
+### Module 1 Extended: Android Components (Tag: Clase1-3)
+- Activity visibility states
+- Complete activity lifecycle
+- Intent system & navigation
+- State management (Bundles, extras, SaveState)
+- Advanced Manifest configuration
+  - Intent filters
+  - MAIN launcher
+  - Service declarations
+- System Components
+  - Content Providers
+  - Broadcast Receivers
+
+### Module 2: Responsive Design (Tags: before_dimens, sample_with_SW)
+#### Screen Adaptability
+- Profile layouts before/after SW implementation
+- Smallest Width (SW) values & dimensions
+- Advanced Layout Features
+  - Custom shapes
+  - Ripple effects
+  - Layout includes
+
+#### UI Components & Navigation
+- FloatingActionButton implementation
+- MaterialToolbar integration
+- Advanced Intents
+  - Deep linking
+  - Intent actions
+  - Data transmission
+- System UI Integration
+  - Status bar customization
+  - UI mode handling
+  - Toast notifications
+- Context management
+
+### Module 3: Data & Lists (Tags: simpleRecycler, simplCheckboxOnRecycler, SavingJson)
+#### RecyclerView Implementation
+- Basic RecyclerView setup
+  - LayoutManager configuration
+  - Adapter pattern
+  - ViewHolder pattern
+- Interactive list items with checkboxes
+
+#### Data Management
+- JSON asset handling
+- EducationItem data modeling
+- File operations
+  - Reading from assets
+  - Error handling
+  - Activity result handling
+- File Storage Types
+  - Internal storage
+  - External storage
+  - App-specific storage
+  - Cache files
+
+### Module 4: App Polish (Tag: dataSavingSamples)
+- **Resource Management**
+  - Drawable selectors
+  - Advanced manifest queries
+- **App Architecture**
+  - Application class setup
+  - Splash screen implementation
+  - Welcome flow
+- **Data Persistence**
+  - SharedPreferences usage
+- **Threading & Animation**
+  - Handler and Looper
+  - Runnable implementations
+  - Lottie animations
+
+### Module 5: Advanced Features (Tag: EasterEgg)
+- **Interactive Features**
+  - Gesture detection
+  - MotionEvent handling
+  - Device rotation
+- **Custom Graphics**
+  - Custom View creation
+  - Canvas drawing
+  - Paint configurations
+  - Focus management
+
 ---
 
 **Happy Learning! 🚀** Start your Android development journey with this hands-on project and build your first professional presentation card app.
