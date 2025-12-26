@@ -21,15 +21,11 @@
         app:titleTextAppearance="@style/TextAppearance.App.Toolbar.Title"
         app:titleTextColor="?attr/colorOnPrimary" />
 
-    <ImageView
-        android:id="@+id/detailImageView"
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/composeView"
         android:layout_width="match_parent"
         android:layout_height="280dp"
-        android:layout_gravity="top"
-        android:layout_marginBottom="24dp"
-        android:contentDescription="TODO"
-        android:scaleType="centerCrop"
-        tools:src="@drawable/android_university_banner" />
+        android:layout_marginBottom="24dp" />
 
     <TextView
         android:id="@+id/detailDescriptionTextView"
@@ -38,6 +34,7 @@
         android:layout_gravity="center"
         android:layout_marginHorizontal="24dp"
         android:textSize="18sp"
+        android:textAlignment="center"
         tools:text="Description" />
 
 </LinearLayout>
