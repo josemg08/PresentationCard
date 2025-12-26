@@ -1,10 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
     namespace 'com.example.presentationcard'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.example.presentationcard"
@@ -24,6 +26,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+    buildFeatures {
+        compose true
+    }
 }
 
 dependencies {
@@ -33,4 +41,14 @@ dependencies {
     implementation libs.activity
 
     implementation libs.lottie
+
+    // Compose
+    implementation platform(libs.compose.bom)
+    implementation libs.compose.ui
+    implementation libs.compose.ui.graphics
+    implementation libs.compose.ui.tooling.preview
+    implementation libs.compose.material3
+    implementation libs.compose.activity
+    implementation libs.core.ktx
+    debugImplementation libs.compose.ui.tooling
 }

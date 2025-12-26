@@ -1,230 +1,471 @@
-package com.example.presentationcard.views;
+package com.example.presentationcard.views
 
-import static com.example.presentationcard.Constants.EXTRA_STRING_KEY;
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.content.res.Configuration
+import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
+import com.example.presentationcard.Constants.EXTRA_STRING_KEY
+import com.example.presentationcard.R
+import com.example.presentationcard.ui.theme.PresentationCardTheme
 
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+class ProfileActivity : ComponentActivity() {
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-import com.example.presentationcard.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-public class ProfileActivity extends AppCompatActivity {
-
-    /**
-     * Called when the activity is first created. Used to initialize the activity.
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setStatusBarColor();
-
-        // Add layout reference
-        setContentView(R.layout.activity_profile);
-
-        /*if (savedInstanceState != null) {
-            // Use to restore savedInstanceState
-        }*/
-
-        initNetworkLinks();
-
-        FloatingActionButton fab = findViewById(R.id.fab_next);
-        fab.setOnClickListener(view -> {
-            Intent intent = new Intent(this, EducationActivity.class);
-            intent.putExtra(EXTRA_STRING_KEY, "Hello from ProfileActivity!");
-            startActivity(intent);
-        });
+        setContent {
+            PresentationCardTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    ProfileScreen(
+                        onLinkedInClick = { openLinkedIn() },
+                        onEmailClick = { composeEmail() },
+                        onGithubClick = { openGithub() },
+                        onPhoneClick = { dialPhone() },
+                        onWhatsappClick = { goToWhatsapp() },
+                        onNextClick = { navigateToEducation() }
+                    )
+                }
+            }
+        }
     }
 
-    private void initNetworkLinks() {
-        initLinkedInLink();
-        initEmailLink();
-        initGithubLink();
-        initPhoneDialerLink();
-        initWhatsappLink();
-    }
-
-    private void initLinkedInLink() {
-        View networkItem = findViewById(R.id.network_item_2);
-        networkItem.setOnClickListener(v -> openLinkedIn());
-        ImageView icon = networkItem.findViewById(R.id.network_icon);
-        TextView text = networkItem.findViewById(R.id.network_text);
-        icon.setImageResource(R.drawable.ic_linkedin);
-        text.setText(getString(R.string.linkedin));
-    }
-
-    private void openLinkedIn() {
-        // First, try to open the profile in the LinkedIn app.
+    private fun openLinkedIn() {
         try {
-            // The deep link URI for opening a profile in the LinkedIn app.
-            Uri uri = Uri.parse(getString(R.string.linked_in_deeplink));
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-            // If the LinkedIn app is not installed, this exception will be caught.
-            // In this case, open the profile in a web browser.
-            Toast.makeText(this, getString(R.string.no_linkedin_app_error), Toast.LENGTH_SHORT).show();
-
-            // The web URL for the LinkedIn profile.
-            Uri webUri = Uri.parse(getString(R.string.linked_in_link));
-            Intent webIntent = new Intent(Intent.ACTION_VIEW, webUri);
-            startActivity(webIntent);
+            val uri = getString(R.string.linked_in_deeplink).toUri()
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
+        } catch (_: ActivityNotFoundException) {
+            Toast.makeText(this, getString(R.string.no_linkedin_app_error), Toast.LENGTH_SHORT)
+                .show()
+            val webUri = getString(R.string.linked_in_link).toUri()
+            val webIntent = Intent(Intent.ACTION_VIEW, webUri)
+            startActivity(webIntent)
         }
     }
 
-    private void initEmailLink() {
-        View networkItem = findViewById(R.id.network_item_1);
-        networkItem.setOnClickListener(v -> composeEmail());
-        ImageView icon = networkItem.findViewById(R.id.network_icon);
-        TextView text = networkItem.findViewById(R.id.network_text);
-        icon.setImageResource(R.drawable.ic_email);
-        text.setText(getString(R.string.email));
-    }
-
-    public void composeEmail() {
-        // Create a new Intent with the ACTION_SENDTO action.
-        // The 'mailto:' URI scheme ensures that only email apps will handle it.
-        // The recipient's email address is placed directly in the Uri for maximum compatibility.
-        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + getString(R.string.my_email)));
-
-        // Check if there is an application on the device that can handle this intent.
-        // This prevents the app from crashing if no email client is installed.
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            // If an email app is found, start the activity, which will open the email client.
-            startActivity(intent);
+    private fun composeEmail() {
+        val intent =
+            Intent(Intent.ACTION_SENDTO, "mailto:${getString(R.string.my_email)}".toUri())
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
         } else {
-            // If no email app is found, show a toast message to the user.
-            Toast.makeText(this, getString(R.string.no_email_message), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.no_email_message), Toast.LENGTH_SHORT).show()
         }
     }
 
-    private void initGithubLink() {
-        View networkItem = findViewById(R.id.network_item_3);
-        networkItem.setOnClickListener(v -> {
-            String url = getString(R.string.github_link);
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            startActivity(intent);
-        });
-        ImageView icon = networkItem.findViewById(R.id.network_icon);
-        TextView text = networkItem.findViewById(R.id.network_text);
-        icon.setImageResource(R.drawable.ic_github);
-        text.setText(getString(R.string.github));
+    private fun openGithub() {
+        val url = getString(R.string.github_link)
+        val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+        startActivity(intent)
     }
 
-    private void initPhoneDialerLink() {
-        View networkItem = findViewById(R.id.network_item_4);
-        networkItem.setOnClickListener(v -> dialPhone());
-        ImageView icon = networkItem.findViewById(R.id.network_icon);
-        TextView text = networkItem.findViewById(R.id.network_text);
-        icon.setImageResource(R.drawable.ic_phone);
-        text.setText(getString(R.string.phoneCall));
+    private fun dialPhone() {
+        val dialIntent =
+            Intent(Intent.ACTION_DIAL, getString(R.string.phone_call_intent).toUri())
+        startActivity(dialIntent)
     }
 
-    private void dialPhone() {
-        // Create an Intent with the ACTION_DIAL action
-        Intent dialIntent = new Intent(Intent.ACTION_DIAL);
-        dialIntent.setData(Uri.parse(getString(R.string.phone_call_intent)));
-
-        // Start the activity, which will open the dialer app
-        startActivity(dialIntent);
+    private fun goToWhatsapp() {
+        val url = getString(R.string.whatsapp_link)
+        val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+        startActivity(intent)
     }
 
-    private void initWhatsappLink() {
-        View networkItem = findViewById(R.id.network_item_5);
-        networkItem.setOnClickListener(v -> goToWhatsapp());
-        ImageView icon = networkItem.findViewById(R.id.network_icon);
-        TextView text = networkItem.findViewById(R.id.network_text);
-        icon.setImageResource(R.drawable.ic_whatsapp);
-        text.setText(getString(R.string.whatsapp));
+    private fun navigateToEducation() {
+        val intent = Intent(this, EducationActivity::class.java)
+        intent.putExtra(EXTRA_STRING_KEY, "Hello from ProfileActivity!")
+        startActivity(intent)
     }
+}
 
-    private void goToWhatsapp() {
-        // Create an Intent to open WhatsApp chat with your number using this URL as intent data
-        String url = "https://api.whatsapp.com/send?phone=5555555";
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(url));
-        startActivity(intent);
-    }
+@Composable
+fun ProfileScreen(
+    onLinkedInClick: () -> Unit,
+    onEmailClick: () -> Unit,
+    onGithubClick: () -> Unit,
+    onPhoneClick: () -> Unit,
+    onWhatsappClick: () -> Unit,
+    onNextClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val configuration = LocalConfiguration.current
 
-    private void setStatusBarColor() {
-        // Changing the StatusBar icons to darker ones to contrast against white background
-        int nightMode = getResources().getConfiguration().uiMode
-                & Configuration.UI_MODE_NIGHT_MASK;
-        View decor = getWindow().getDecorView();
+    when (configuration.orientation) {
+        Configuration.ORIENTATION_LANDSCAPE -> {
+            ProfileScreenLandscape(
+                onLinkedInClick = onLinkedInClick,
+                onEmailClick = onEmailClick,
+                onGithubClick = onGithubClick,
+                onPhoneClick = onPhoneClick,
+                onWhatsappClick = onWhatsappClick,
+                onNextClick = onNextClick,
+                modifier = modifier
+            )
+        }
 
-        if (nightMode == Configuration.UI_MODE_NIGHT_NO) {
-            // light theme → dark icons
-            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        } else {
-            // dark theme → light icons
-            decor.setSystemUiVisibility(0);
+        else -> {
+            ProfileScreenPortrait(
+                onLinkedInClick = onLinkedInClick,
+                onEmailClick = onEmailClick,
+                onGithubClick = onGithubClick,
+                onPhoneClick = onPhoneClick,
+                onWhatsappClick = onWhatsappClick,
+                onNextClick = onNextClick,
+                modifier = modifier
+            )
         }
     }
+}
 
-    /**
-     * Called when the activity is about to become visible.
-     */
-    @Override
-    protected void onStart() {
-        super.onStart();
+@Composable
+fun ProfileScreenPortrait(
+    onLinkedInClick: () -> Unit,
+    onEmailClick: () -> Unit,
+    onGithubClick: () -> Unit,
+    onPhoneClick: () -> Unit,
+    onWhatsappClick: () -> Unit,
+    onNextClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = onNextClick,
+                containerColor = MaterialTheme.colorScheme.primary
+            ) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_chevron_right),
+                    contentDescription = stringResource(R.string.profile_activity_fab_description),
+                    tint = MaterialTheme.colorScheme.onPrimary
+                )
+            }
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(horizontal = 24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.height(70.dp))
+
+            Image(
+                painter = painterResource(R.drawable.android_sample_image),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(200.dp)
+                    .clip(CircleShape),
+                contentScale = ContentScale.Crop
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Text(
+                text = stringResource(R.string.profile_title),
+                style = MaterialTheme.typography.titleLarge,
+                fontSize = 28.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(horizontal = 24.dp)
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = stringResource(R.string.profile_subtitle),
+                style = MaterialTheme.typography.bodyMedium,
+                fontSize = 18.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(horizontal = 10.dp)
+            )
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            NetworkLinksGrid(
+                onLinkedInClick = onLinkedInClick,
+                onEmailClick = onEmailClick,
+                onGithubClick = onGithubClick,
+                onPhoneClick = onPhoneClick,
+                onWhatsappClick = onWhatsappClick
+            )
+        }
     }
+}
 
-    /**
-     * Called when the activity has become visible (it is now "resumed").
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
+@Composable
+fun ProfileScreenLandscape(
+    onLinkedInClick: () -> Unit,
+    onEmailClick: () -> Unit,
+    onGithubClick: () -> Unit,
+    onPhoneClick: () -> Unit,
+    onWhatsappClick: () -> Unit,
+    onNextClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = onNextClick,
+                containerColor = MaterialTheme.colorScheme.primary
+            ) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_chevron_right),
+                    contentDescription = stringResource(R.string.profile_activity_fab_description),
+                    tint = MaterialTheme.colorScheme.onPrimary
+                )
+            }
+        }
+    ) { innerPadding ->
+        Row(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(horizontal = 24.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(R.drawable.android_sample_image),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(200.dp)
+                    .clip(CircleShape),
+                contentScale = ContentScale.Crop
+            )
+
+            Spacer(modifier = Modifier.width(24.dp))
+
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(1f),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = stringResource(R.string.profile_title),
+                    style = MaterialTheme.typography.titleLarge,
+                    fontSize = 28.sp,
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier.padding(horizontal = 24.dp)
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = stringResource(R.string.profile_subtitle),
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier.padding(horizontal = 24.dp)
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                NetworkLinksGrid(
+                    onLinkedInClick = onLinkedInClick,
+                    onEmailClick = onEmailClick,
+                    onGithubClick = onGithubClick,
+                    onPhoneClick = onPhoneClick,
+                    onWhatsappClick = onWhatsappClick,
+                    modifier = Modifier.padding(horizontal = 24.dp)
+                )
+            }
+        }
     }
+}
 
-    /**
-     * Called when another activity is taking focus (this activity is about to be "paused").
-     */
-    @Override
-    protected void onPause() {
-        super.onPause();
+@Composable
+fun NetworkLinksGrid(
+    onLinkedInClick: () -> Unit,
+    onEmailClick: () -> Unit,
+    onGithubClick: () -> Unit,
+    onPhoneClick: () -> Unit,
+    onWhatsappClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(20.dp)
+        ) {
+            NetworkItem(
+                iconRes = R.drawable.ic_email,
+                text = stringResource(R.string.email),
+                onClick = onEmailClick
+            )
+            NetworkItem(
+                iconRes = R.drawable.ic_linkedin,
+                text = stringResource(R.string.linkedin),
+                onClick = onLinkedInClick
+            )
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(20.dp)
+        ) {
+            NetworkItem(
+                iconRes = R.drawable.ic_github,
+                text = stringResource(R.string.github),
+                onClick = onGithubClick
+            )
+            NetworkItem(
+                iconRes = R.drawable.ic_phone,
+                text = stringResource(R.string.phoneCall),
+                onClick = onPhoneClick
+            )
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        NetworkItem(
+            iconRes = R.drawable.ic_whatsapp,
+            text = stringResource(R.string.whatsapp),
+            onClick = onWhatsappClick
+        )
     }
+}
 
-    /**
-     * Called when the activity is no longer visible (it is now "stopped").
-     */
-    @Override
-    protected void onStop() {
-        super.onStop();
+@Composable
+fun NetworkItem(
+    iconRes: Int,
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier
+            .width(150.dp)
+            .border(
+                border = BorderStroke(
+                    width = 2.dp,
+                    color = MaterialTheme.colorScheme.outline
+                ),
+                shape = RoundedCornerShape(size = 8.dp)
+            )
+            .clickable(onClick = onClick)
+            .padding(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Icon(
+            imageVector = ImageVector.vectorResource(iconRes),
+            contentDescription = text,
+            modifier = Modifier.size(25.dp),
+            tint = MaterialTheme.colorScheme.onBackground
+        )
+        Spacer(modifier = Modifier.width(5.dp))
+        Text(
+            text = text,
+            fontSize = 16.sp,
+            color = MaterialTheme.colorScheme.onBackground
+        )
     }
+}
 
-    /**
-     * Called just before the activity is destroyed. Used to clean up resources.
-     */
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+@Preview(showBackground = true, showSystemUi = true, name = "Portrait")
+@Composable
+fun ProfileScreenPortraitPreview() {
+    PresentationCardTheme {
+        ProfileScreenPortrait(
+            onLinkedInClick = {},
+            onEmailClick = {},
+            onGithubClick = {},
+            onPhoneClick = {},
+            onWhatsappClick = {},
+            onNextClick = {}
+        )
     }
+}
 
-    /**
-     * Called after your activity has been stopped, prior to it being started again.
-     */
-    @Override
-    protected void onRestart() {
-        super.onRestart();
+@Preview(
+    showBackground = true,
+    name = "Landscape",
+    widthDp = 640,
+    heightDp = 360
+)
+@Composable
+fun ProfileScreenLandscapePreview() {
+    PresentationCardTheme {
+        ProfileScreenLandscape(
+            onLinkedInClick = {},
+            onEmailClick = {},
+            onGithubClick = {},
+            onPhoneClick = {},
+            onWhatsappClick = {},
+            onNextClick = {}
+        )
     }
+}
 
-    /**
-     * Saves the state of the activity.
-     */
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
+@Preview(showBackground = true)
+@Composable
+fun NetworkItemPreview() {
+    PresentationCardTheme {
+        NetworkItem(
+            iconRes = R.drawable.ic_email,
+            text = "Email",
+            onClick = {}
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun NetworkLinksGridPreview() {
+    PresentationCardTheme {
+        NetworkLinksGrid(
+            onLinkedInClick = {},
+            onEmailClick = {},
+            onGithubClick = {},
+            onPhoneClick = {},
+            onWhatsappClick = {}
+        )
     }
 }

@@ -16,6 +16,7 @@ My joy is in solving real-world problems through elegant code.</string>
     <string name="linked_in_deeplink" translatable="false">linkedin://in/williamhgates</string>
     <string name="linked_in_link" translatable="false">https://www.linkedin.com/in/williamhgates</string> <!--TODO add translations with link for different profile languages -->
     <string name="github_link" translatable="false">https://www.github.com</string>
+    <string name="whatsapp_link" translatable="false">https://api.whatsapp.com/send?phone=5555555</string>
     <string name="phone_call_intent" translatable="false">tel:55555555</string>
 
     <!-- error messages -->

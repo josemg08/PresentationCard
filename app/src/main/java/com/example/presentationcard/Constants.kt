@@ -1,14 +1,14 @@
-package com.example.presentationcard;
+package com.example.presentationcard
 
-public class Constants {
+object Constants {
     // Save instant state, and Intent keys
-    public static final String BUTTON2_VISIBILITY_KEY = "button2_visibility";
-    public static final String EXTRA_STRING_KEY = "extra_string";
+    const val BUTTON2_VISIBILITY_KEY = "button2_visibility"
+    const val EXTRA_STRING_KEY = "extra_string"
 
     // Json parsing keys and file name
-    public static final String JSON_FILE_NAME = "education.json";
-    public static final String JSON_TITLE_KEY = "title";
-    public static final String JSON_DESCRIPTION_KEY = "description";
-    public static final String JSON_IMAGE_KEY = "image";
-    public static final String JSON_IS_SELECTED_KEY = "isSelected";
+    const val JSON_FILE_NAME = "education.json"
+    const val JSON_TITLE_KEY = "title"
+    const val JSON_DESCRIPTION_KEY = "description"
+    const val JSON_IMAGE_KEY = "image"
+    const val JSON_IS_SELECTED_KEY = "isSelected"
 }
