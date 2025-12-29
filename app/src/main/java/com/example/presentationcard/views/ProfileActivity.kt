@@ -43,10 +43,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.net.toUri
 import com.example.presentationcard.Constants.EXTRA_STRING_KEY
 import com.example.presentationcard.R
 import com.example.presentationcard.ui.theme.PresentationCardTheme
+import com.google.android.material.imageview.ShapeableImageView
 
 class ProfileActivity : ComponentActivity() {
 
@@ -266,13 +268,23 @@ fun ProfileScreenLandscape(
                 .padding(horizontal = 24.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                painter = painterResource(R.drawable.android_sample_image),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(200.dp)
-                    .clip(CircleShape),
-                contentScale = ContentScale.Crop
+            // Using AndroidView to embed the ShapeableImageView from XML layouts
+            AndroidView(
+                factory = { context ->
+                    ShapeableImageView(context).apply {
+                        setImageResource(R.drawable.android_sample_image)
+                        scaleType = android.widget.ImageView.ScaleType.CENTER_CROP
+                        shapeAppearanceModel = shapeAppearanceModel.toBuilder()
+                            .setAllCornerSizes(
+                                com.google.android.material.shape.RelativeCornerSize(
+                                    0.5f
+                                )
+                            )
+                            .build()
+                        importantForAccessibility = android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO
+                    }
+                },
+                modifier = Modifier.size(200.dp)
             )
 
             Spacer(modifier = Modifier.width(24.dp))
